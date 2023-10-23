@@ -492,4 +492,8 @@ fn main() -> Result<(), anyhow::Error> {
 
 /// No-op if use-bindgen is disabled.
 #[cfg(not(feature = "use-bindgen"))]
-fn main() {}
+fn main() {
+    if let Ok(lib_dir) = std::env::var("RUST_ICU_LINK_SEARCH_DIR") {
+        println!("cargo:rustc-link-search=native={}", lib_dir);
+    }
+}
