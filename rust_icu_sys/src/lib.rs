@@ -11,7 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+<<<<<<< Updated upstream
 
+=======
+#![doc(test(ignore))]
+>>>>>>> Stashed changes
 // Notes:
 // * deref_nullptr: since rustc 1.53, bindgen causes UB warnings -- see
 // https://github.com/rust-lang/rust-bindgen/issues/1651 remove this once bindgen has fixed the
@@ -23,7 +27,7 @@
     non_upper_case_globals,
     unused_imports,
     rustdoc::bare_urls,
-    deref_nullptr,
+    deref_nullptr
 )]
 
 #[cfg(all(feature = "icu_version_in_env", feature = "icu_config"))]
@@ -87,7 +91,14 @@ extern crate libc;
 #[cfg_attr(feature = "static", link(name = "icui18n", kind = "static"))]
 #[cfg_attr(feature = "static", link(name = "icuuc", kind = "static"))]
 #[cfg_attr(feature = "static", link(name = "icudata", kind = "static"))]
-#[cfg_attr(feature = "static", link(name = "stdc++", kind = "dylib"))]
+#[cfg_attr(
+    all(target_vendor = "apple", feature = "static"),
+    link(name = "c++", kind = "dylib")
+)]
+#[cfg_attr(
+    not(all(target_vendor = "apple", feature = "static")),
+    link(name = "stdc++", kind = "dylib")
+)]
 extern "C" {}
 
 impl From<i8> for UCharCategory {
@@ -124,7 +135,7 @@ impl From<i8> for UCharCategory {
             28 => UCharCategory::U_INITIAL_PUNCTUATION,
             29 => UCharCategory::U_FINAL_PUNCTUATION,
             30 => UCharCategory::U_CHAR_CATEGORY_COUNT,
-            _ => { 
+            _ => {
                 panic!("could not convert: {}", value);
             }
         }

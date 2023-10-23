@@ -43,7 +43,8 @@ icu_version_67_plus = []
 icu_version_68_plus = []
 icu_version_69_max = []
 static = []
-
+static-stdc++ = []
+static-libc++ = []
 
 [badges]
 maintenance = { status = "actively-developed" }
